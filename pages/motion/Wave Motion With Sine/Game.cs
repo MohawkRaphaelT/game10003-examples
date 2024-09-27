@@ -54,9 +54,8 @@ namespace Game10003
             Draw.Rectangle(leftPoint, size);
             // Draw line across the screen horizontally
             Draw.LineSize = 5;
-            Draw.LineColor = new Color(0, 121, 241); // sky blue
+            Draw.LineColor = new Color(0, 121, 241); // blue
             Draw.Line(leftPoint, rightPoint);
-
         }
 
         void DrawGrid(int cellSize, int thickness, Color color)
