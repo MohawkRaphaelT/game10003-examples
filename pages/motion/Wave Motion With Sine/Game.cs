@@ -1,5 +1,6 @@
 ﻿// Include code libraries you need below (use the namespace).
 using System;
+using System.Globalization;
 using System.Numerics;
 
 // The namespace your code is in.
@@ -20,6 +21,11 @@ namespace Game10003
         {
             Window.SetTitle("Wave Motion With Sine");
             Window.SetSize(800, 600);
+
+            // Get the directory where THIS program is currently running from!
+            string currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            // Print that out to the console window
+            Console.WriteLine(currentDirectory);
         }
 
         /// <summary>
