@@ -2,6 +2,7 @@
 using Raylib_cs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 // The namespace your code is in.
@@ -134,7 +135,10 @@ public class Game
     }
     public void CheckControllerButtons(ControllerInputs controller)
     {
-        foreach (var button in Enum.GetValues<ControllerButton>())
+        var items = Enum.GetValues<ControllerButton>()
+            .OrderBy(str => str)
+            .ToArray();
+        foreach (var button in items)
         {
             bool isActive = Input.IsControllerButtonPressed(controller.ID, button);
             if (isActive && !controller.Buttons.Contains(button))
@@ -145,7 +149,10 @@ public class Game
     }
     public void CheckControllerAxis(ControllerInputs controller)
     {
-        foreach (var axis in Enum.GetValues<ControllerAxis>())
+        var items = Enum.GetValues<ControllerAxis>()
+            .OrderBy(str => str)
+            .ToArray();
+        foreach (var axis in items)
         {
             float value = Input.GetControllerAxis(controller.ID, axis);
             bool isActive = MathF.Abs(value) > 0.1f;
@@ -165,7 +172,10 @@ public class Game
         float padW = padL * (Controllers.Count + 1);
         float w = conW + padW;
         float h = conH + padH;
-        Window.SetSize((int)w, (int)h);
+
+        int x = Math.Max((int)w, 200);
+        int y = Math.Max((int)h, 200);
+        Window.SetSize(x, y);
     }
 
     private int GetMaxControllerElements()
