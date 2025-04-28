@@ -17,6 +17,7 @@ public class Game
     private readonly Color inactiveColor = Color.White;
     private readonly Color activeColor = Color.Red;
     private readonly float size = 32;
+    private readonly float width = 500;
     private readonly float padS = 3;
     private readonly float padL = 16;
 
@@ -42,7 +43,7 @@ public class Game
 
         for (int i = 0; i < Controllers.Count; i++)
         {
-            float x = padL * (i + 1);
+            float x = (padL * (i + 1)) + (i * width);
             DrawController(Controllers[i], x, padL);
         }
 
@@ -99,13 +100,13 @@ public class Game
         Vector2 anchor = new(x, y);
         string name = Raylib.GetGamepadName_(controller.ID);
         Text.Draw($"{controller.ID}: {name}", anchor); anchor.Y += size;
-        foreach (var button in controller.Buttons)
+        foreach (var button in controller.Buttons.OrderBy(str => str).ToArray())
         {
             DrawDigital(anchor, controller.ID, button);
             anchor.Y += size;
             anchor.Y += padS;
         }
-        foreach (var axis in controller.Axes)
+        foreach (var axis in controller.Axes.OrderBy(str => str).ToArray())
         {
             DrawAxis(anchor, controller.ID, axis);
             anchor.Y += size;
@@ -135,10 +136,7 @@ public class Game
     }
     public void CheckControllerButtons(ControllerInputs controller)
     {
-        var items = Enum.GetValues<ControllerButton>()
-            .OrderBy(str => str)
-            .ToArray();
-        foreach (var button in items)
+        foreach (var button in Enum.GetValues<ControllerButton>())
         {
             bool isActive = Input.IsControllerButtonPressed(controller.ID, button);
             if (isActive && !controller.Buttons.Contains(button))
@@ -149,10 +147,7 @@ public class Game
     }
     public void CheckControllerAxis(ControllerInputs controller)
     {
-        var items = Enum.GetValues<ControllerAxis>()
-            .OrderBy(str => str)
-            .ToArray();
-        foreach (var axis in items)
+        foreach (var axis in Enum.GetValues<ControllerAxis>())
         {
             float value = Input.GetControllerAxis(controller.ID, axis);
             bool isActive = MathF.Abs(value) > 0.1f;
@@ -165,7 +160,7 @@ public class Game
     public void UpdateWindowSize()
     {
         int maxElements = GetMaxControllerElements();
-        float conW = 500 * Controllers.Count; 
+        float conW = width * Controllers.Count; 
         float conH = size * maxElements; // lines only
         float padH = padS * maxElements +
                      padL * (Controllers.Count + 1) ;
