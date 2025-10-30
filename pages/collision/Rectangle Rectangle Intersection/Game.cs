@@ -18,6 +18,10 @@ namespace Game10003
         Color red = Color.Red;
         Color green = new(0, 180, 0);
 
+        float PlayerHalfSizeX => size.X / 2;
+        float PlayerHalfSizeY => size.Y / 2;
+        float RectangleHalfSizeX => rectangleSize.X / 2;
+        float RectangleHalfSizeY => rectangleSize.Y / 2;
 
         /// <summary>
         ///     Setup runs once before the game loop begins.
@@ -49,11 +53,17 @@ namespace Game10003
             float rectangleTopEdge    = (int)(rectanglePosition.Y                  );
             float rectangleBottomEdge = (int)(rectanglePosition.Y + rectangleSize.Y);
 
+            float rectangleLRCentreY = rectangleTopEdge + RectangleHalfSizeY;
+            float rectangleTBCentreX = rectangleLeftEdge + RectangleHalfSizeX;
+
             // Compute each side of the player (also a rectangle)
             float playerLeftEdge   = (int)(position.X         );
             float playerRightEdge  = (int)(position.X + size.X);
             float playerTopEdge    = (int)(position.Y         );
             float playerBottomEdge = (int)(position.Y + size.Y);
+
+            float playerLRCentreY = playerTopEdge + PlayerHalfSizeY;
+            float playerTBCentreX = playerLeftEdge + PlayerHalfSizeX;
 
             // Check each side and see if player is inside any edge
             bool isInsideLeftEdge = playerRightEdge >= rectangleLeftEdge;   // left check
@@ -65,11 +75,16 @@ namespace Game10003
             Draw.LineSize = 0;
             Draw.FillColor = Color.White;
             Draw.Rectangle(position, size);
+            //
+            DrawCollisionConnection(isInsideRightEdge, playerLeftEdge, playerLRCentreY, rectangleRightEdge, rectangleLRCentreY);
+            DrawCollisionConnection(isInsideLeftEdge, playerRightEdge, playerLRCentreY, rectangleLeftEdge, rectangleLRCentreY);
+            DrawCollisionConnection(isInsideTopEdge, playerTBCentreX, playerBottomEdge, rectangleTBCentreX, rectangleTopEdge);
+            DrawCollisionConnection(isInsideBottomEdge, playerTBCentreX, playerTopEdge, rectangleTBCentreX, rectangleBottomEdge);
             // Draw sides of the player
-            DrawCollisionEdges(isInsideRightEdge, playerLeftEdge, playerTopEdge, playerLeftEdge, playerBottomEdge);    // left
-            DrawCollisionEdges(isInsideLeftEdge, playerRightEdge, playerTopEdge, playerRightEdge, playerBottomEdge); // right
-            DrawCollisionEdges(isInsideBottomEdge, playerLeftEdge, playerTopEdge, playerRightEdge, playerTopEdge);       // top
-            DrawCollisionEdges(isInsideTopEdge, playerLeftEdge, playerBottomEdge, playerRightEdge, playerBottomEdge); // bottom
+            DrawCollisionEdges(isInsideLeftEdge, playerRightEdge, playerTopEdge, playerRightEdge, playerBottomEdge);  // left
+            DrawCollisionEdges(isInsideRightEdge, playerLeftEdge, playerTopEdge, playerLeftEdge, playerBottomEdge);   // right
+            DrawCollisionEdges(isInsideTopEdge, playerLeftEdge, playerBottomEdge, playerRightEdge, playerBottomEdge); // top
+            DrawCollisionEdges(isInsideBottomEdge, playerLeftEdge, playerTopEdge, playerRightEdge, playerTopEdge);    // bottom
             // Draw sides of the rectangle
             DrawCollisionEdges(isInsideLeftEdge, rectangleLeftEdge, rectangleTopEdge, rectangleLeftEdge, rectangleBottomEdge);    // left
             DrawCollisionEdges(isInsideRightEdge, rectangleRightEdge, rectangleTopEdge, rectangleRightEdge, rectangleBottomEdge); // right
@@ -102,6 +117,30 @@ namespace Game10003
             Draw.LineSize = 3;
             Draw.LineColor = color;
             Draw.Line(start, end);
+        }
+
+        void DrawCollisionConnection(bool isInRectangle, float startX, float startY, float endX, float endY)
+        {
+            Color color = GetCollisionColor(isInRectangle);
+            Draw.LineSize = 1;
+            Draw.LineColor = color;
+            DrawDottedLine(startX, startY, endX, endY);
+        }
+
+        void DrawDottedLine(float startX, float startY, float endX, float endY, float size = 5f)
+        {
+            Vector2 start = new(startX, startY);
+            Vector2 end = new(endX, endY);
+            Vector2 delta = end - start;
+            Vector2 dir = Vector2.Normalize(delta);
+            float dist = delta.Length();
+            for (float i = 0; i < dist; i += size)
+            {
+                Vector2 a = (i + 0) * dir + start;
+                Vector2 b = (i + size) * dir + start;
+                Draw.Line(a, b);
+                i += size; // gap
+            }
         }
 
         Color GetCollisionColor(bool isInRectangle)
