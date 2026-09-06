@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Game10003;
+namespace MohawkGame2D;
 
 public class Frog
 {
@@ -39,6 +39,6 @@ public class Frog
         // Mouth
         Draw.LineSize = 3;
         Draw.LineColor = Color.Black;
-        Draw.PolyLine(x - 15, y - 40, x, y - 25, x + 15, y - 40);
+        Draw.PolyLine([x - 15, x, x + 15], [y - 40, y - 25, y - 40]);
     }
 }

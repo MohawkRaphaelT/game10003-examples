@@ -3,43 +3,42 @@ using System;
 using System.Numerics;
 
 // The namespace your code is in.
-namespace Game10003
+namespace MohawkGame2D;
+
+/// <summary>
+///     Your game code goes inside this class!
+/// </summary>
+public class Game
 {
+    // Place your variables here:
+
+
     /// <summary>
-    ///     Your game code goes inside this class!
+    ///     Setup runs once before the game loop begins.
     /// </summary>
-    public class Game
+    public void Setup()
     {
-        // Place your variables here:
+        Window.SetTitle("Move Over Time");
+        Window.SetSize(400, 400);
+    }
 
+    /// <summary>
+    ///     Update runs every frame.
+    /// </summary>
+    public void Update()
+    {
+        Window.ClearBackground(Color.OffWhite);
 
-        /// <summary>
-        ///     Setup runs once before the game loop begins.
-        /// </summary>
-        public void Setup()
-        {
-            Window.SetTitle("Move Over Time");
-            Window.SetSize(400, 400);
-        }
+        // Move at 5px per second
+        Draw.FillColor = Color.Blue;
+        Draw.Circle(Time.SecondsElapsed * 5, 100, 35);
 
-        /// <summary>
-        ///     Update runs every frame.
-        /// </summary>
-        public void Update()
-        {
-            Window.ClearBackground(Color.OffWhite);
+        // Move at 15px per second
+        Draw.FillColor = Color.Green;
+        Draw.Circle(Time.SecondsElapsed * 15, 200, 35);
 
-            // Move at 5px per second
-            Draw.FillColor = Color.Blue;
-            Draw.Circle(Time.SecondsElapsed * 5, 100, 35);
-
-            // Move at 15px per second
-            Draw.FillColor = Color.Green;
-            Draw.Circle(Time.SecondsElapsed * 15, 200, 35);
-
-            // Move at 30px per second
-            Draw.FillColor = Color.Red;
-            Draw.Circle(Time.SecondsElapsed * 30, 300, 35);
-        }
+        // Move at 30px per second
+        Draw.FillColor = Color.Red;
+        Draw.Circle(Time.SecondsElapsed * 30, 300, 35);
     }
 }

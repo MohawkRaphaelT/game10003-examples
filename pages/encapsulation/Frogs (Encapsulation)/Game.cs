@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Numerics;
 
-namespace Game10003;
+namespace MohawkGame2D;
 
 public class Game
 {
