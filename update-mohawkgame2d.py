@@ -8,7 +8,7 @@ dirs = glob.glob(pattern, recursive=True)
 print(f"Found {len(dirs)} directory matches for \"{pattern}\".")
 # Iterate over each
 for directory in dirs:
-    # if trying to delete source files due to same name, don't
+    # prevent deleting 'source' files due to same name
     if (directory.replace("\\", "/") == source):
         continue
     # List directory
