@@ -103,8 +103,8 @@ namespace MohawkGame2D
             // Transforms along x and y axes
             Draw.Quad(
             180 + mouseX / -40, 210 + mouseX / -20, // top left
-                                                    // -40 = 400/-10
-                                                    // -20 = 400/-20
+            // -40 = 400/-10
+            // -20 = 400/-20
             200 + mouseX / -7.69231f, 290 + mouseX / -14.28571f, // bottom left
             // -7.69231 = 400/-52
             // -14.28571 = 400/-28
