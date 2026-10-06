@@ -5,10 +5,24 @@ namespace MohawkGame2D;
 
 public class Frog
 {
-    public Color skinColor;
-    public Color cheekColor;
+    // Private variables
+    Color skinColor;
+    Color cheekColor;
+    // Public variables
     public float x;
     public float y;
+    public Frog bestFriend;
+
+    // Constructor assign default values to frog
+    public Frog()
+    {
+        x = Window.Width / 2;
+        y = Window.Height / 2;
+        // Green
+        skinColor = new Color(140, 240, 110);
+        // Rose
+        cheekColor = new Color(255, 170, 150);
+    }
 
     public void Update()
     {
@@ -20,7 +34,7 @@ public class Frog
         Draw.Capsule(x - 50, y - 40, x + 50, y - 40, 25);
         // Feet
         Draw.Square(x - 20, y - 15, 15); // L
-        Draw.Square(x + 05, y - 15, 15); // L
+        Draw.Square(x + 05, y - 15, 15); // R
         Draw.Rectangle(x - 40, y - 12, 32, 12); // L
         Draw.Rectangle(x + 05, y - 12, 32, 12); // R
         Draw.Circle(x - 40, y - 6, 6); // L
@@ -39,7 +53,10 @@ public class Frog
         // Mouth
         Draw.LineSize = 3;
         Draw.LineColor = Color.Black;
-        Draw.Line(x - 15, y - 40, x, y - 25);
         Draw.Line(x, y - 25, x + 15, y - 40);
+        Draw.Line(x - 15, y - 40, x, y - 25);
+
+        // Draw line to best friend
+        Draw.Line(x, y, bestFriend.x, bestFriend.y);
     }
 }

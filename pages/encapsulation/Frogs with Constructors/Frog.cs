@@ -5,10 +5,19 @@ namespace MohawkGame2D;
 
 public class Frog
 {
-    public Color skinColor;
-    public Color cheekColor;
-    public float x;
-    public float y;
+    public Color skinColor = new Color(140, 240, 110); // green
+    public Color cheekColor = new Color(255, 170, 150); // rose
+    public float x = Window.Width / 2;
+    public float y = Window.Height / 2;
+
+    public Frog(Color skinColor, Color cheekColor)
+    {
+        // Assign unique colors pass in through the constructor (function)
+        // Since the parameter names of the function are the same as the ones
+        // inside this class, we distinguish them using the 'this' keyword.
+        this.skinColor = skinColor;
+        this.cheekColor = cheekColor;
+    }
 
     public void Update()
     {

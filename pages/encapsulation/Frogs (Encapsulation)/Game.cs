@@ -6,7 +6,7 @@ namespace MohawkGame2D;
 public class Game
 {
     // Place your variables here:
-    Color bg = new Color(0, 161, 224);
+    Color bgBlue = new Color(0, 161, 224);
     Color frogGreen = new Color(140, 240, 110);
     Color frogPink = new Color(255, 170, 150);
 
@@ -19,19 +19,19 @@ public class Game
 
         // Initialize class
         frog = new Frog();
-        frog.skin = frogGreen;
-        frog.cheek = frogPink;
+        frog.skinColor = frogGreen;
+        frog.cheekColor = frogPink;
     }
 
     public void Update()
     {
         // Reset background
-        Window.ClearBackground(bg);
+        Window.ClearBackground(bgBlue);
 
         // Assign to frog's position
         frog.x = Input.GetMouseX();
         frog.y = Input.GetMouseY();
         // Call frog function to draw it with it's internal variables
-        frog.Render();
+        frog.Update();
     }
 }

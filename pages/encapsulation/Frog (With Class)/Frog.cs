@@ -5,8 +5,9 @@ namespace MohawkGame2D;
 
 public class Frog
 {
-    public Color skinColor;
-    public Color cheekColor;
+    // Variables local to this class
+    public Color skin;
+    public Color cheek;
     public float x;
     public float y;
 
@@ -14,19 +15,19 @@ public class Frog
     {
         Draw.LineSize = 0;
         // Body and eyes (green)
-        Draw.FillColor = skinColor;
+        Draw.FillColor = skin;
         Draw.Circle(x - 25, y - 70, 23);
         Draw.Circle(x + 25, y - 70, 23);
         Draw.Capsule(x - 50, y - 40, x + 50, y - 40, 25);
         // Feet
         Draw.Square(x - 20, y - 15, 15); // L
-        Draw.Square(x + 05, y - 15, 15); // L
+        Draw.Square(x + 05, y - 15, 15); // R
         Draw.Rectangle(x - 40, y - 12, 32, 12); // L
         Draw.Rectangle(x + 05, y - 12, 32, 12); // R
         Draw.Circle(x - 40, y - 6, 6); // L
         Draw.Circle(x + 39, y - 6, 6); // R
         // Cheeks
-        Draw.FillColor = cheekColor;
+        Draw.FillColor = cheek;
         Draw.Circle(x - 50, y - 40, 20);
         Draw.Circle(x + 50, y - 40, 20);
         // Eyes
@@ -39,7 +40,7 @@ public class Frog
         // Mouth
         Draw.LineSize = 3;
         Draw.LineColor = Color.Black;
-        Draw.Line(x - 15, y - 40, x, y - 25);
         Draw.Line(x, y - 25, x + 15, y - 40);
+        Draw.Line(x - 15, y - 40, x, y - 25);
     }
 }
